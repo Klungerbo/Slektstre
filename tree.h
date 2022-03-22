@@ -44,7 +44,8 @@ public:
             c->traverseDepthFirst(f);
         }
     }
-    void showChildren(){
+
+    void printChildren(){
         if(!isLeaf()){
             for ( auto a : children_){
                 std::cout<<a->getName()<<std::endl;
