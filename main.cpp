@@ -7,34 +7,53 @@
 
 
 int main(){
-    int c;
-    std::cout<<"welcome to anchestor tree. \n please type the root name: ";
+
+    std::cout<<"welcome to anchestor tree.\n please type the root name: ";
     std::string name;
     std::cin >> name;
     node root(name);
 
     std::cout<<"your root name is "<<name<<std::endl;
-    std::cout<<"1. add child \n"
-               "2. traverse upwards \n"
-               "3. traverse downwards";
-    std::cin>>c;
-    switch (c) {
-        case 1:
-            std::cout<<"type child name: ";
-            std::cin>>name;
-            node name(name);
+    std::cout<<"add child: \n";
 
-            break;
-        case2:
-            break;
+    int c = 1;
+    bool exitLoop = false;
+    while(!exitLoop) {
+        switch (c) {
 
+            case 1: {
+                std::cin >> name;
+                if (root.getAmountOfChildren() == 1) {
+                    node two(name);
+                    root.addChild(two);
+                    std::cout << "name of child two is: " << name;
 
+                }
+                if (!root.getAmountOfChildren()) {
+                    node one(name);
+                    root.addChild(one);
+                    std::cout << "name of child one is " << name << std::endl;
+
+                }
+                std::cout << "do you wish to add another child? \n"
+                             "1. Yes\n"
+                             "2. No\n";
+                std::cin >> c;
+                if (c==2){c=99;}
+                break;
+            }
+            case 2:
+                break;
+            case 99:
+                exitLoop=true;
+                std::cout<<"exiting program...";
+                break;
+
+            default:
+                std::cout << "invalid number. try again: ";
+                std::cin >> c;
+
+       }
     }
-   node ancestor("ancestor");
-   node b("bcestor");
-   ancestor.addChild(b);
-   std::cout<<b.getParent()->getName();
-
-
        return 1;
 }

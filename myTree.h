@@ -20,12 +20,13 @@ public:
     auto getParent(){
         return parent_;
     }
-    auto getChild1(node& n){
-        return n.children_[0];
-    };
-    auto getChild2(node& n){
-        return n.children_[1];
+    auto getAmountOfChildren(){
+        return children_.size();
     }
+    auto getChildren(node& n){
+        return children_;
+    }
+
     std::string getName(){
         return name_;
     }
