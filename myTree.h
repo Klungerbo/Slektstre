@@ -17,26 +17,33 @@ public:
         children_.emplace_back(n);
     }
 
-    auto getParent(){
+    auto getParent() const{
         return parent_;
     }
-    auto getAmountOfChildren(){
+    int getAmountOfChildren() const{
         return children_.size();
     }
-    auto getChildren(node& n){
+    auto getChildren(){
         return children_;
     }
 
-    std::string getName(){
+    std::string getName() const{
         return name_;
     }
-    friend std::ostream& operator<<(std::ostream&, const node&);
+
 
 private:
     std::string name_;
     std::vector<node> children_;
     node* parent_ = nullptr;
 };
+/*std::ostream& operator << (std::string& stream, node n){
+    for(auto a: n.getChildren()){
+        std::string name = a.getName();
+        stream << name <<"\n";
+    }
+}*/
+
 
 
 #endif //SLEKTSTRE_MYTREE_H
