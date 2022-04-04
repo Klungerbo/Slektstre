@@ -43,6 +43,7 @@ public:
         for(int i =0;i<children_.size();i++){
             std::cout<<"nr. "<< i+1 <<" is: "<<children_[i].getName()<<std::endl;
         }
+
     }
 
 
@@ -100,7 +101,7 @@ void select_child(node &currentNode)
         std::cout << "Choose one of the following numbers: \n";
         currentNode.printChildren();
         selection = inputToInt();
-        currentNode = currentNode.getChildren()[selection + 1];
+        currentNode = currentNode.getChildren()[selection - 1];
     }
 }
 
@@ -110,7 +111,7 @@ void select_person(node &currentNode)
     while (true)
     {
 
-        std::cout << "1. Select parent \n"
+        std::cout << "\n1. Select parent \n"
                      "2. Select child.\n"
                      "3. Go back to menu";
         selection = inputToInt();
@@ -155,19 +156,43 @@ void add_child(node &currentNode)
     node n(name);
     currentNode.addChild(n);
 }
+node search(node n, std::string s) {
+    if (!n.isLeaf()) {
+        for (auto a: n.getChildren()) {
+            if (a.getName() == s) {
+                return a;
+            } else if (!a.isLeaf()) {
+                search(a, s);
+            }
+        }
+    }
+}
+node search_person(node n){ //selects root, then iterates
+    while (!n.isRoot()){
+        n = *n.getParent();
+    }
+    std::cout<<"Enter person name: ";
+    std::string name;
+    std::getline(std::cin, name);
+    search(n, name);
+    }
+
+
+
+
 
 void main_menu(node &currentNode)
 {
     int selection;
-
     while (true)
     {
-        std::cout << "Currently selected is " << currentNode.getName() << "." << std::endl;
+        std::cout << "\nCurrently selected is " << currentNode.getName() << "." << std::endl;
         std::cout << "1. Change selected person\n"
-                     "2. Get children\n"
-                     "3. Get parent\n"
+                     "2. Show children\n"
+                     "3. Show parent\n"
                      "4. Add child\n"
-                     "5. Exit program\n";
+                     "5. Search for person\n"
+                     "6. Exit program\n";
         selection = inputToInt();
 
         switch (selection)
@@ -194,6 +219,11 @@ void main_menu(node &currentNode)
                 break;
             }
             case 5:
+            {
+                search_person(currentNode);
+                break;
+            }
+            case 6:
                 std::cout << "Exiting program...";
                 return;
             default:
