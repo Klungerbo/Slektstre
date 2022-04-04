@@ -7,10 +7,11 @@
 
 
 
+
 int main() {
     int menu = 98;
     int exit = 99;
-    int c = menu;
+    int menuPointer = menu;
 
 
     std::cout << "Welcome to ancestor tree.\n\n"
@@ -26,19 +27,20 @@ int main() {
     bool exitLoop = false;
     while (!exitLoop) {
 
-        switch (c) {
+        switch (menuPointer) {
 
             case 1: { // change selected person
                 std::cout << "1. Select parent \n"
                              "2. Select child.\n"
                              "3. Go back to menu";
-                std::cin>>c;
-                switch (c) {
+                menuPointer = menuInput();
+                switch (menuPointer) {
 
                     case 1: {
                         if (currentNode.isRoot()) {
                             std::cout << "Current node have no parents. select something else. \n";
-                            std::cin>>c;
+                            menuPointer = menuInput();
+                            currentNode = *currentNode.getParent();
                         }
                         else {
                             currentNode = *currentNode.getParent();
@@ -48,26 +50,26 @@ int main() {
                     case 2: {
                         if (currentNode.isLeaf()) {
                             std::cout << "Current node has no children. select something else. \n";
-                            std::cin>>c;
+                            menuPointer = menuInput();
                         }
                         else {
                             std::cout << "Choose one of the following numbers: \n";
                             currentNode.printChildren();
-                            std::cin>>c;
-                            currentNode = currentNode.getChildren()[c+1];
+                            menuPointer = menuInput();
+                            currentNode = currentNode.getChildren()[menuPointer-1];
                         }
                         break;
                     }
                     case 3:
-                        c = menu;
+                        menuPointer = menu;
                         break;
                     default:
                         defaultMsg();
-                        std::cin>>c;
+                        menuPointer = menuInput();
                 }
 
             }
-            case 2: {
+            case 2: { // print children
                 if(currentNode.isLeaf()){
                     std::cout << "Current node have no children. select something else. \n";
 
@@ -75,18 +77,20 @@ int main() {
                 else{
                     currentNode.printChildren();
                 }
-                c = menu;
+                menuPointer = menu;
 
                 break;
             }
-            case 3: {
+            case 3: { // print parent
                 if(currentNode.isRoot()){
                     std::cout << "Current node have no parents. select something else. \n";
                 }
                 else{
-                    std::cout<<currentNode.getParent()->getName();
+                    node previousNode("p");
+                    previousNode = *currentNode.getParent();
+                    std::cout<<previousNode.getName()<<std::endl;
                 }
-                c = menu;
+                menuPointer = menu;
                 break;
             }
             case 4: { //addChild
@@ -105,28 +109,28 @@ int main() {
                              "4. Add child\n"
                              "5. Exit program\n";
                 std::string s;
-                std::cin>>c;
+                menuPointer = menuInput();
 
 
-                switch (c) {
+                switch (menuPointer) {
                     case 1:
-                        c = c;
+                        menuPointer  = menuPointer;
                         break;
                     case 2:
-                        c = c;
+                        menuPointer = menuPointer;
                         break;
                     case 3:
-                        c = c;
+                        menuPointer = menuPointer;
                         break;
                     case 4:
-                        c = c;
+                        menuPointer = menuPointer;
                         break;
                     case 5:
-                        c = exit;
+                        menuPointer = exit;
                         break;
                     default:
                         defaultMsg();
-                        std::cin>>c;
+                        menuPointer = menuInput();
                 }
                 break;
             }
@@ -139,7 +143,7 @@ int main() {
             default: {
 
                 defaultMsg();
-                std::cin>>c;
+                menuPointer = menuInput();
                 break;
             }
         }

@@ -7,6 +7,7 @@
 #include <iostream>                      //                    |   | |   |
 #include <utility>                        //                      |   |
 #include <vector>                        //   Children ^            |
+#include "string"
 
 class node{
 public:
