@@ -22,9 +22,7 @@ public:
         n.parent_ = this;
         children_.emplace_back(&n);
     }
-    [[nodiscard]] bool isRoot() const{
-        return parent_== nullptr;
-    }
+
     [[nodiscard]] bool isLeaf() const{
         return children_.empty();
     }
