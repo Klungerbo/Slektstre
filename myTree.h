@@ -26,9 +26,7 @@ public:
     auto getChildren()const {
         return children_;
     }
-    bool hasParent() const{
-        return parent_;
-    }
+
     [[nodiscard]] bool isRoot() const{
         return parent_== nullptr;
     }
@@ -66,21 +64,22 @@ void get_children(const node &currentNode)
 {
     if (currentNode.isLeaf())
     {
-        std::cout << "Current node have no children. select something else. \n";
+        std::cout << "Current node have no children. Select something else. \n";
     }
     else
     {
         currentNode.printChildren();
     }
+
 }
 
 void select_parent(node &currentNode)
 {
-    int selection;
+
     if (currentNode.isRoot())
     {
-        std::cout << "Current node have no parents. select something else. \n";
-        selection = inputToInt();
+        std::cout << "Current node have no parents. Returning to main menu. \n";
+
     }
     else
     {
@@ -90,11 +89,11 @@ void select_parent(node &currentNode)
 
 void select_child(node &currentNode)
 {
-    int selection;
+    int selection=0;
     if (currentNode.isLeaf())
     {
-        std::cout << "Current node has no children. select something else. \n";
-        selection = inputToInt();
+        std::cout << "Current node has no children. Returning to main menu. \n";
+
     }
     else
     {
@@ -133,6 +132,7 @@ void select_person(node &currentNode)
             default:
                 defaultMsg();
         }
+        return;
     }
 }
 
@@ -156,13 +156,13 @@ void add_child(node &currentNode)
     node n(name);
     currentNode.addChild(n);
 }
-node search(node n, std::string s) {
-    if (!n.isLeaf()) {
+node search(node n, std::string &name) {
+    if (n.getName()!=name) {
         for (auto a: n.getChildren()) {
-            if (a.getName() == s) {
+            if (a.getName() == name) {
                 return a;
             } else if (!a.isLeaf()) {
-                search(a, s);
+                search(a, name);
             }
         }
     }
@@ -176,6 +176,13 @@ node search_person(node n){ //selects root, then iterates
     std::getline(std::cin, name);
     search(n, name);
     }
+    void showAll(node n){
+        while (!n.isRoot()){
+            n = *n.getParent();
+        }
+        std::cout<<n.getName()<<std::endl;
+
+}
 
 
 
@@ -192,7 +199,8 @@ void main_menu(node &currentNode)
                      "3. Show parent\n"
                      "4. Add child\n"
                      "5. Search for person\n"
-                     "6. Exit program\n";
+                     "6. Exit program\n"
+                     "7. Show all people";
         selection = inputToInt();
 
         switch (selection)
@@ -223,9 +231,15 @@ void main_menu(node &currentNode)
                 search_person(currentNode);
                 break;
             }
+
             case 6:
                 std::cout << "Exiting program...";
                 return;
+            case 7:
+            {
+
+                break;
+            }
             default:
                 defaultMsg();
         }
