@@ -1,2 +1,2 @@
-# Slektstre
+# Ancestor tree
 slektstre
