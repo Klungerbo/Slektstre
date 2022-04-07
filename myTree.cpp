@@ -223,6 +223,7 @@ node search_person(node &currentNode) { //selects root, then iterates
 void get_info(node &currentNode) {
     std::cout << "name: " << currentNode.getName() << "\n";
     std::cout << "age: " << currentNode.getAge() << "\n";
+    std::cout << "gender: " << currentNode.getGender() << "\n";
     std::cout << "children: ";
     std::cout << "Parent: " << currentNode.getParent();
     currentNode.printChildren();
