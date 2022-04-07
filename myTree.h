@@ -7,6 +7,7 @@
 #include <iostream>                      //                    |   | |   |
 #include <utility>                        //                      |   |
 #include <vector>                        //   Children ^            |
+#include <array>
 #include "string"
 
 class node{
@@ -50,6 +51,7 @@ private:
     std::vector<node> children_;
     node* parent_ = nullptr;
 };
+void main_menu(node &currentNode);
 
 int inputToInt(){
     std::string s;
@@ -156,25 +158,44 @@ void add_child(node &currentNode)
     node n(name);
     currentNode.addChild(n);
 }
-node search(node n, std::string &name) {
-    if (n.getName()!=name) {
-        for (auto a: n.getChildren()) {
+void search(node &sNode, std::string &name) {
+    node previous("a");
+    previous = sNode;
+
+    while (sNode.getName()!= name) {
+        for (auto a: sNode.getChildren()) {
             if (a.getName() == name) {
-                return a;
+                sNode=a;
+                break;
             } else if (!a.isLeaf()) {
                 search(a, name);
             }
         }
     }
+    if(sNode.getName() == name){
+        int selection = 0;
+        std::cout << name<<" is found, select person? \n1.Yes     2.No\n";
+        selection=inputToInt();
+        switch (selection){
+            case1:
+                 break;
+            case2:
+                sNode = previous;
+                 break;
+        }
+    }
 }
-node search_person(node n){ //selects root, then iterates
-    while (!n.isRoot()){
-        n = *n.getParent();
+node search_person(node &currentNode){ //selects root, then iterates
+    node sNode("s");
+    sNode=currentNode;
+    while (!sNode.isRoot()){
+        sNode = *currentNode.getParent();
     }
     std::cout<<"Enter person name: ";
     std::string name;
     std::getline(std::cin, name);
-    search(n, name);
+    search(sNode, name);
+    main_menu(sNode);
     }
     void showAll(node n){
         while (!n.isRoot()){
@@ -185,8 +206,34 @@ node search_person(node n){ //selects root, then iterates
 }
 
 
+void info_menu(node &currentNode) {
+    int selection;
 
+    std::cout << "\nCurrently selected is " << currentNode.getName() << "." << std::endl;
+    std::cout << "1. Show children\n"
+                 "2. Show parent\n"
+                 "3. Back to main menu\n";
+    selection = inputToInt();
+    switch (selection){
+        case 1:
+        {
+            get_children(currentNode);
+            break;
+        }
+        case 2:
+        {
+            get_parent(currentNode);
+            break;
+        }
+        case 3:
+            main_menu(currentNode);
+            break;
+        default:
+            defaultMsg();
+            break;
+    }
 
+}
 
 void main_menu(node &currentNode)
 {
@@ -195,12 +242,11 @@ void main_menu(node &currentNode)
     {
         std::cout << "\nCurrently selected is " << currentNode.getName() << "." << std::endl;
         std::cout << "1. Change selected person\n"
-                     "2. Show children\n"
-                     "3. Show parent\n"
-                     "4. Add child\n"
-                     "5. Search for person\n"
-                     "6. Exit program\n"
-                     "7. Show all people";
+                     "2. get info\n"
+                     "3. Add child\n"
+                     "4. Search for person\n"
+                     "5. Exit program\n"
+                     "6. Show all people\n";
         selection = inputToInt();
 
         switch (selection)
@@ -213,29 +259,25 @@ void main_menu(node &currentNode)
             }
             case 2:
             {
-                get_children(currentNode);
+                info_menu(currentNode);
                 break;
             }
+
             case 3:
-            {
-                get_parent(currentNode);
-                break;
-            }
-            case 4:
             { // addChild
                 add_child(currentNode);
                 break;
             }
-            case 5:
+            case 4:
             {
                 search_person(currentNode);
                 break;
             }
 
-            case 6:
+            case 5:
                 std::cout << "Exiting program...";
                 return;
-            case 7:
+            case 6:
             {
 
                 break;
@@ -245,6 +287,8 @@ void main_menu(node &currentNode)
         }
     }
 }
+
+
 
 
 
