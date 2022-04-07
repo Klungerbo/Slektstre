@@ -68,6 +68,7 @@ void search(node &sNode, std::string &name);
 
 node search_person(node &currentNode);
 
+
 void info_menu(node &currentNode);
 
 void main_menu(node &currentNode);

@@ -10,3 +10,5 @@ tests not yet implemented
 inputToInt could probably be removed
 
 class maybe not properly moved to .cpp
+
+multiple functions get marked unused, even tough they are used in switches.
