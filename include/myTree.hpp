@@ -2,8 +2,8 @@
 // Created by Torst on 22.03.2022.
 //
 
-#ifndef SLEKTSTRE_MYTREE_H
-#define SLEKTSTRE_MYTREE_H
+#ifndef SLEKTSTRE_MYTREE_HPP
+#define SLEKTSTRE_MYTREE_HPP
 
 #include <vector>
 #include "myTree.cpp"
@@ -74,4 +74,4 @@ void info_menu(node &currentNode);
 void main_menu(node &currentNode);
 
 
-#endif //SLEKTSTRE_MYTREE_H
+#endif //SLEKTSTRE_MYTREE_HPP

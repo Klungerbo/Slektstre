@@ -1,15 +1,13 @@
 //
 // Created by Torst on 14.03.2022.
 //
-
+#define CATCH_CONFIG_MAIN
 #include <iostream>
-#include "myTree.h"
+#include "../include/myTree.hpp"
 #include <string>
 
 
-
-int main()
-{
+int main() {
     std::cout << "Welcome to ancestor tree.\n\n"
                  "Type the root name: ";
     std::string name;
