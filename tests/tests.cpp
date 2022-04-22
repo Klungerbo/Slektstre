@@ -8,7 +8,7 @@
 
 node per("PER pil", 20, "male");
 
-TEST_CASE("TEST CLASS NAME") {
+/*TEST_CASE("TEST CLASS NAME") {
 
     std::string nameAnswer = per.getName();
 
@@ -40,8 +40,12 @@ TEST_CASE("TEST ADD CHILD") {
 TEST_CASE("TEST GET CHILDREN") {
     node perChild("Pål Pil", 1, "male");
     per.addChild(perChild);
+    REQUIRE(per.getChildren()[0] == per);
 
-}TEST_CASE("TEST PRINT CHILDREN") {
+}*/
 
+TEST_CASE("TEST GET CURRENT YEAR") {
+    int currentYear = 2022;
+    REQUIRE(currentYear == getCurrentYear());
 
 }

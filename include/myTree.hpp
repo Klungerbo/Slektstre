@@ -9,6 +9,13 @@
 #include <utility>                        //                      |   |
 #include <vector>                        //   Children ^            |
 #include "string"
+#include <chrono>
+#include <ctime>
+#include <ctime>   // localtime
+#include <sstream> // stringstream
+#include <iomanip> // put_time
+#include <string>
+int getCurrentYear();
 
 
 class node {
@@ -53,6 +60,7 @@ public:
         std::getline(std::cin, name_);
     }
 
+
     [[nodiscard]] bool isRoot() const {
         return parent_ == nullptr;
     }
@@ -61,11 +69,11 @@ public:
         return children_.empty();
     }
 
-    std::string getName() const {
+    [[nodiscard]] std::string getName() const {
         return name_;
     }
 
-    void printInfo()  const{
+    void printInfo() const {
         std::cout << name_ << ". Age: " << age_ << ". Gender: " << gender_;
     }
 
@@ -77,13 +85,11 @@ public:
         }
     }
 
-    std::string getGender() const {
+    [[nodiscard]] std::string getGender() const {
         return gender_;
     }
 
-    int getAge() const {
-        return age_;
-    }
+
 
 
 private:
@@ -92,7 +98,24 @@ private:
     node *parent_ = nullptr;
     std::string gender_;
     int age_ = 0;
+    int currentYear = 2022;
+    int birthYear_=currentYear-age_;
 };
+
+int getCurrentYear() {
+    auto currentDateTime= std::chrono::system_clock::now();
+    auto in_time_t = std::chrono::system_clock::to_time_t(currentDateTime);
+    std::stringstream ss;
+    ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
+    auto currentDateTime_s = ss.str();
+    std::string currentYear_s;
+    for(int i = 0; i>4; i++){
+        currentYear_s+=(currentDateTime_s[i]);
+    }
+    int currentYear = stoi(currentYear_s);
+
+    return currentYear;
+}
 
 void main_menu(node &currentNode);
 
@@ -123,45 +146,8 @@ void select_parent(node &currentNode) {
     }
 }
 
-void select_child(node &currentNode) {
-    int selection = 0;
-    if (currentNode.isLeaf()) {
-        std::cout << "Current node has no children. Returning to main menu. \n";
 
-    } else {
-        std::cout << "Choose one of the following numbers: \n";
-        currentNode.printChildren();
-        selection = inputToInt();
-        currentNode = currentNode.getChildren()[selection - 1];
-    }
-}
 
-void select_person(node &currentNode) {
-    int selection;
-    while (true) {
-
-        std::cout << "\n1. Select parent \n"
-                     "2. Select child.\n"
-                     "3. Go back to menu";
-        selection = inputToInt();
-        switch (selection) {
-
-            case 1: {
-                select_parent(currentNode);
-                break;
-            }
-            case 2: {
-                select_child(currentNode);
-                break;
-            }
-            case 3:
-                return;
-            default:
-                defaultMsg();
-        }
-        return;
-    }
-}
 
 void get_parent(node &currentNode) {
     if (currentNode.isRoot()) {
@@ -177,139 +163,6 @@ void add_child(node &currentNode) {
     std::getline(std::cin, name);
     node n(name);
     currentNode.addChild(n);
-}
-
-void search(node &sNode, std::string &name) {
-    node previous("a");
-    previous = sNode;
-
-    while (sNode.getName() != name) {
-        for (auto a: sNode.getChildren()) {
-            if (a.getName() == name) {
-                sNode = a;
-                break;
-            } else if (!a.isLeaf()) {
-                search(a, name);
-            }
-        }
-    }
-    if (sNode.getName() == name) {
-        int selection = 0;
-        std::cout << name << " is found, select person? \n1.Yes     2.No\n";
-        selection = inputToInt();
-        switch (selection) {
-            case1:
-                break;
-            case2:
-                sNode = previous;
-                break;
-        }
-    }
-}
-
-node search_person(node &currentNode) {
-    node sNode("s");
-    sNode = currentNode;
-    while (!sNode.isRoot()) {
-        sNode = *currentNode.getParent();
-    }
-    std::cout << "Enter person name: ";
-    std::string name;
-    std::getline(std::cin, name);
-    search(sNode, name);
-    main_menu(sNode);
-    return {sNode};
-}
-
-
-void info_menu(node &currentNode) {
-    std::cout << "name: " << currentNode.getName() << "\n";
-    std::cout << "age: " << currentNode.getAge() << "\n";
-    std::cout << "gender: " << currentNode.getGender() << "\n";
-    std::cout << "children: ";
-    std::cout << "Parent: " << currentNode.getParent();
-    currentNode.printChildren();
-}
-
-void change_info(node &currentNode) {
-    int selection;
-
-    std::cout << "\nCurrently selected is " << currentNode.getName() << "." << std::endl;
-    std::cout << "1. Change age\n"
-                 "2. Change name\n"
-                 "3. Change gender\n"
-                 "4. Back to main menu\n";
-    selection = inputToInt();
-    switch (selection) {
-        case 1: {
-            currentNode.setAge();
-            break;
-
-        }
-        case 2: {
-            currentNode.setName();
-            break;
-        }
-        case 3:
-            currentNode.setGender();
-            break;
-
-        case 4:
-            main_menu(currentNode);
-            break;
-        default:
-            defaultMsg();
-            break;
-    }
-
-}
-
-void main_menu(node &currentNode) {
-    int selection;
-    while (true) {
-        std::cout << "\nCurrently selected is " << currentNode.getName() << "." << std::endl;
-        std::cout << "1. Change selected person\n"
-                     "2. Get info on currently selected\n"
-                     "3. Add child\n"
-                     "4. Search for person\n"
-                     "5. Exit program\n"
-                     "6. Show all people\n"
-                     "7. Change info on currently selected";
-        selection = inputToInt();
-
-        switch (selection) {
-
-            case 1: { // change selected person
-                select_person(currentNode);
-                break;
-            }
-            case 2: {
-                break;
-            }
-
-            case 3: { // addChild
-                add_child(currentNode);
-                break;
-            }
-            case 4: {
-                search_person(currentNode);
-                break;
-            }
-
-            case 5:
-                std::cout << "Exiting program...";
-                return;
-            case 6: {
-                main_menu(currentNode);//placeholder
-                break;
-            }
-            case 7:
-                change_info(currentNode);
-                break;
-            default:
-                defaultMsg();
-        }
-    }
 }
 
 
