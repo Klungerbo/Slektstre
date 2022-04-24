@@ -46,6 +46,7 @@ TEST_CASE("TEST GET CHILDREN") {
 
 TEST_CASE("TEST GET CURRENT YEAR") {
     int currentYear = 2022;
+
     REQUIRE(currentYear == getCurrentYear());
 
 }

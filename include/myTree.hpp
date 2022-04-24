@@ -42,6 +42,10 @@ public:
         std::cout << "Enter new age: ";
         std::cin >> age;
         age_ = age;
+        yearOfBirth_ = currentYear-age_;
+    }
+    int getAge() const{
+        return getCurrentYear()-yearOfBirth_;
     }
 
     void setGender() {
@@ -100,22 +104,26 @@ private:
     int age_ = 0;
     int currentYear = 2022;
     int birthYear_=currentYear-age_;
+    int yearOfBirth_ = 0;
 };
 
-int getCurrentYear() {
+int getcurrentYear(){
+    return 2022;
+}
+/*int getCurrentYear() {
     auto currentDateTime= std::chrono::system_clock::now();
     auto in_time_t = std::chrono::system_clock::to_time_t(currentDateTime);
     std::stringstream ss;
     ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
     auto currentDateTime_s = ss.str();
     std::string currentYear_s;
-    for(int i = 0; i>4; i++){
+    for(int i = 1; i>5; i++){
         currentYear_s+=(currentDateTime_s[i]);
     }
     int currentYear = stoi(currentYear_s);
-
+    std::cout <<currentYear;
     return currentYear;
-}
+}*/
 
 void main_menu(node &currentNode);
 
