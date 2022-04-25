@@ -5,9 +5,12 @@
 #include <iostream>
 #include "../include/myTree.hpp"
 #include <string>
+#include "memory"
 
 
 int main() {
+    std::unique_ptr<int> population = std::make_unique<int>();
+
     std::cout << "Welcome to ancestor tree.\n\n"
                  "Type the root name: ";
     std::string name;

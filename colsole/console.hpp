@@ -9,13 +9,13 @@
 
 void changeInfo(node &currentNode);
 
-void main_menu(node &currentNode);
-
 void select_person(node &currentNode);
 
 void select_child(node &currentNode);
 
 void main_menu(node &currentNode) {
+
+
     int selection;
     while (true) {
         std::cout << "\nCurrently selected is " << currentNode.getName() << "." << std::endl;
@@ -32,7 +32,10 @@ void main_menu(node &currentNode) {
         switch (selection) {
 
             case 1: { // add child
-                currentNode.addChild();
+
+                std::string name;
+                std::getline(std::cin, name);
+
                 break;
             }
             case 2: { // show children

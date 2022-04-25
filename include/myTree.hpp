@@ -5,25 +5,30 @@
 #ifndef SLEKTSTRE_MYTREE_HPP
 #define SLEKTSTRE_MYTREE_HPP
 
-#include <iostream>                      //                    |   | |   |
-#include <utility>                        //                      |   |
-#include <vector>                        //   Children ^            |
 #include "string"
 #include <chrono>
 #include <ctime>
 #include <ctime>   // localtime
-#include <sstream> // stringstream
 #include <iomanip> // put_time
+#include <iostream>//                    |   | |   |
+#include <sstream> // stringstream
 #include <string>
-int getCurrentYear();
+#include <utility>//                      |   |
+#include <vector> //   Children ^            |
 
+int getCurrentYear();
 
 class node {
 public:
-    explicit node(std::string name, int age = 0, std::string gender = "") : name_(std::move(name)), age_(age),
-                                                                            gender_(std::move(gender)) {};
+    enum Gender {
+        Male,
+        Female,
+        Empty
+    };
+    explicit node(std::string name, int age = 0, Gender gender = Empty) : name_(std::move(name)), age_(age),
+                                                                          gender_(gender) {generation_++;};
 
-    void addChild(node &n) {
+    void addChild(node n) {
         n.parent_ = this;
         children_.emplace_back(n);
     }
@@ -36,32 +41,21 @@ public:
         return children_;
     }
 
-    void setAge() {
-        int age;
-        std::cout << "current age is: " << age_ << "\n";
-        std::cout << "Enter new age: ";
-        std::cin >> age;
+    void setAge(int age) {
         age_ = age;
-        yearOfBirth_ = currentYear-age_;
+        yearOfBirth_ = currentYear - age_;
     }
-    int getAge() const{
-        return getCurrentYear()-yearOfBirth_;
-    }
-
-    void setGender() {
-        std::string gender;
-        std::cout << "current gender is: " << gender_ << "\n";
-        std::cout << "Enter new gender: ";
-
-        std::cin >> gender;
-        gender_ = gender;
+    [[nodiscard]] int getAge() const {
+        return getCurrentYear() - yearOfBirth_;
     }
 
-    void setName() {
-        std::string name;
-        std::cout << "current name is: " << name_ << "\n";
-        std::cout << "Enter new name: ";
-        std::getline(std::cin, name_);
+
+    void setGender(Gender &g) {
+        gender_ = g;
+    }
+
+    void setName(std::string &name) {
+        name_=name;
     }
 
 
@@ -78,7 +72,9 @@ public:
     }
 
     void printInfo() const {
-        std::cout << name_ << ". Age: " << age_ << ". Gender: " << gender_;
+        std::cout << name_ << "."
+                              " Age: " << age_ << "."
+                             " Gender: " << gender_;
     }
 
     void printChildren() const {
@@ -90,24 +86,29 @@ public:
     }
 
     [[nodiscard]] std::string getGender() const {
-        return gender_;
+        if(gender_==Male){
+            return "Male";
+        }
+        else{
+            return "Female";
+        }
+
     }
-
-
 
 
 private:
     std::string name_;
     std::vector<node> children_;
     node *parent_ = nullptr;
-    std::string gender_;
+    int gender_ = Male;
     int age_ = 0;
     int currentYear = 2022;
-    int birthYear_=currentYear-age_;
+    int birthYear_ = currentYear - age_;
     int yearOfBirth_ = 0;
+    int generation_=0;
 };
 
-int getcurrentYear(){
+int getcurrentYear() {
     return 2022;
 }
 /*int getCurrentYear() {
@@ -137,14 +138,6 @@ void defaultMsg() {
     std::cout << "Invalid number. Try again: ";
 }
 
-void get_children(const node &currentNode) {
-    if (currentNode.isLeaf()) {
-        std::cout << "Current node have no children. Select something else. \n";
-    } else {
-        currentNode.printChildren();
-    }
-}
-
 void select_parent(node &currentNode) {
     if (currentNode.isRoot()) {
         std::cout << "Current node have no parents. Returning to main menu. \n";
@@ -156,22 +149,4 @@ void select_parent(node &currentNode) {
 
 
 
-
-void get_parent(node &currentNode) {
-    if (currentNode.isRoot()) {
-        std::cout << "Current node have no parents. select something else. \n";
-    } else {
-        std::cout << currentNode.getParent()->getName();
-    }
-}
-
-void add_child(node &currentNode) {
-    std::string name;
-    std::cout << "Type child name: " << std::endl;
-    std::getline(std::cin, name);
-    node n(name);
-    currentNode.addChild(n);
-}
-
-
-#endif //SLEKTSTRE_MYTREE_HPP
+#endif//SLEKTSTRE_MYTREE_HPP
