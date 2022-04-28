@@ -5,11 +5,9 @@
 #ifndef SLEKTSTRE_CONSOLE_HPP
 #define SLEKTSTRE_CONSOLE_HPP
 
-#include "../include/myTree.hpp"
+#include "myTree.hpp"
 
-void changeInfo(node &currentNode);
-
-void select_person(node &currentNode);
+void changeInfo(node &currentNode);void select_person(node &currentNode);
 
 void select_child(node &currentNode);
 
@@ -79,16 +77,14 @@ void changeInfo(node &currentNode) {
     selection = inputToInt();
     switch (selection) {
         case 1: {
-            currentNode.setAge();
+
             break;
 
         }
-        case 2: {
-            currentNode.setName();
+        case 2: {;
             break;
         }
-        case 3:
-            currentNode.setGender();
+        case 3:;
             break;
 
         case 4:

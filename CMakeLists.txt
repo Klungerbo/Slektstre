@@ -3,8 +3,7 @@ project(Slektstre)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_subdirectory(include)
 add_subdirectory(tool)
 add_subdirectory(tests)
-target_link_libraries(ancestortree_lib )
+enable_testing()
 

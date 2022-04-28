@@ -3,9 +3,9 @@
 //
 #define CATCH_CONFIG_MAIN
 #include <iostream>
-#include "../include/myTree.hpp"
 #include <string>
 #include "memory"
+#include "console.hpp"
 
 
 int main() {

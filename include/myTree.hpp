@@ -16,7 +16,7 @@
 #include <utility>//                      |   |
 #include <vector> //   Children ^            |
 
-int getCurrentYear();
+
 
 class node {
 public:
@@ -28,7 +28,7 @@ public:
     explicit node(std::string name, int age = 0, Gender gender = Empty) : name_(std::move(name)), age_(age),
                                                                           gender_(gender) {generation_++;};
 
-    void addChild(node n) {
+    void addChild(node &n) {
         n.parent_ = this;
         children_.emplace_back(n);
     }
@@ -43,10 +43,14 @@ public:
 
     void setAge(int age) {
         age_ = age;
-        yearOfBirth_ = currentYear - age_;
+        birthYear_ = currentYear - age_;
     }
+    [[nodiscard]] int getCurrentYear() const{
+        return currentYear;
+    }
+
     [[nodiscard]] int getAge() const {
-        return getCurrentYear() - yearOfBirth_;
+        return getCurrentYear() - birthYear_;
     }
 
 
@@ -70,6 +74,9 @@ public:
     [[nodiscard]] std::string getName() const {
         return name_;
     }
+    [[nodiscard]] int getBirthYear()const{
+        return birthYear_;
+    }
 
     void printInfo() const {
         std::cout << name_ << "."
@@ -85,16 +92,30 @@ public:
         }
     }
 
-    [[nodiscard]] std::string getGender() const {
+    [[nodiscard]] int getGender() const {
+        if(gender_==Male){
+            return Male;
+        }
+        else{
+            return Female;
+        }
+    }    [[nodiscard]] std::string getGender_string() const {
         if(gender_==Male){
             return "Male";
         }
         else{
             return "Female";
         }
-
     }
+ bool operator == (const node &a)const{
 
+        if(a.ID_==ID_){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
 private:
     std::string name_;
@@ -102,10 +123,10 @@ private:
     node *parent_ = nullptr;
     int gender_ = Male;
     int age_ = 0;
-    int currentYear = 2022;
-    int birthYear_ = currentYear - age_;
-    int yearOfBirth_ = 0;
+    int currentYear = getCurrentYear();
+    int birthYear_ = currentYear-age_;
     int generation_=0;
+    int ID_=0;
 };
 
 int getcurrentYear() {

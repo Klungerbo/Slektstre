@@ -6,47 +6,41 @@
 #include "catch.hpp"
 #include "../include/myTree.hpp"
 
-node per("PER pil", 20, "male");
+node testNode("Pål pil", 20, node::Male);
 
-/*TEST_CASE("TEST CLASS NAME") {
+TEST_CASE("TEST getName") {
+    std::string nameAnswer = testNode.getName();
+    REQUIRE(nameAnswer == "Pål pil");
+}
 
-    std::string nameAnswer = per.getName();
+TEST_CASE("TEST getAge") {
+    REQUIRE(testNode.getAge() == 20);
 
-    std::string genderAnswer = per.getGender();
+}
+TEST_CASE("TEST getParent"){
+    node testNodeChild("testChild", 4, node::Female);
+    testNode.addChild(testNodeChild);
+    node parentNode = *testNodeChild.getParent();
+    REQUIRE(parentNode == testNode);
+}
 
-    REQUIRE(nameAnswer == "PER pil");
+TEST_CASE("TEST getChildren") {
+    node testNodeChild("Pål Pil", 1, node::Female);
+    testNode.addChild(testNodeChild);
+    REQUIRE(testNode.getChildren()[0] == testNodeChild);
 
 }
 
-TEST_CASE("TEST CLASS AGE") {
+TEST_CASE("TEST getGender") {
+    int gender = testNode.getGender();
+    REQUIRE(gender == node::Male);
+}
 
-    int ageAnswer = per.getAge();
-    REQUIRE(ageAnswer == 20);
+TEST_CASE("TEST addChild") {
+    node child("Petter Pil", 1, node::Male);
+    testNode.addChild(child);
+    REQUIRE(testNode.getChildren().size() == 1);
 }
 
 
-TEST_CASE("TEST CLASS GENDER") {
 
-    int genderAnswer = per.getAge();
-    REQUIRE(genderAnswer == 20);
-}
-
-TEST_CASE("TEST ADD CHILD") {
-    node child("Petter Pil", 1, "male");
-    per.addChild(child);
-    REQUIRE(per.getChildren().size() == 1);
-}
-
-TEST_CASE("TEST GET CHILDREN") {
-    node perChild("Pål Pil", 1, "male");
-    per.addChild(perChild);
-    REQUIRE(per.getChildren()[0] == per);
-
-}*/
-
-TEST_CASE("TEST GET CURRENT YEAR") {
-    int currentYear = 2022;
-
-    REQUIRE(currentYear == getCurrentYear());
-
-}
