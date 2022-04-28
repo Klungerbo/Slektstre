@@ -4,7 +4,7 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include "../include/myTree.hpp"
+#include "../include/Node.hpp"
 
 node testNode("Pål pil", 20, node::Male);
 

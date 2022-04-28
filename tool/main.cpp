@@ -12,15 +12,13 @@ int main() {
     std::unique_ptr<int> population = std::make_unique<int>();
 
     std::cout << "Welcome to ancestor tree.\n\n"
-                 "Type the root name: ";
+                 "Type the first persons name: ";
     std::string name;
     std::getline(std::cin, name);
-    node root(name);
+    Person per(name);
+    Node root(per);
+    std::cout << "The first persons name is:  " << name << "." << std::endl;
 
-    std::cout << "The root name is " << name << "." << std::endl;
-    node currentNode = root;
-
-    main_menu(currentNode);
 
     return 0;
 }
