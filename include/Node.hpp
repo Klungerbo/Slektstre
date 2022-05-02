@@ -15,7 +15,7 @@ public:
     explicit Node(t &member) : member_(&member) {};
 
     [[nodiscard]] Person getMember() const {
-        return *member_;
+        return member_;
     }
 
     [[nodiscard]] Person getParent() const {
@@ -31,6 +31,7 @@ public:
     }
 
     void addChild(t &p) {
+        *parent_ = this;
         if (p.getGender() == p.isFemale()) {
             *children_[0] = p;
         } else {
@@ -52,7 +53,7 @@ public:
     }
 
 private:
-    Person *member_ = nullptr;
+    Person member_;
     Person *parent_ = nullptr;
     Person *children_[2]{nullptr, nullptr};
     int ID_ = 0;

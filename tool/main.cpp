@@ -14,9 +14,15 @@ int main() {
     std::cout << "Welcome to ancestor tree.\n\n"
                  "Type the first persons name: ";
     std::string name;
+    int age;
+    std::string gender;
+
     std::getline(std::cin, name);
-    Person per(name);
-    Node root(per);
+    std::cout<<"enter age: "<<std::endl;
+    std::cin>> age;
+    std::cout<<"enter gender: "<<std::endl;
+    std::getline(std::cin, gender);
+
     std::cout << "The first persons name is:  " << name << "." << std::endl;
 
 

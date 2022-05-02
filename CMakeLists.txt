@@ -3,7 +3,7 @@ project(Slektstre)
 
 set(CMAKE_CXX_STANDARD 17)
 
+enable_testing()
 add_subdirectory(tool)
 add_subdirectory(tests)
-enable_testing()
 

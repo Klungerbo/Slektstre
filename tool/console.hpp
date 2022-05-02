@@ -7,19 +7,23 @@
 
 #include "Node.hpp"
 
-void changeInfo(Node &currentNode);void select_person(Node &currentNode);
-
-void select_child(Node &currentNode);
-
-void main_menu(Node &currentNode) {
-
+int enterAge(){
+    int age;
+    std::cout<<"enter age: "<<std::endl;
+    std::cin>>age;
 }
-
-void changeInfo(Node &currentNode) {
-
+std::string enterGender(){
+    std::string gender;
+    std::cout<<"enter gender: "<<std::endl;
+    if(gender == ("female") || gender == "male"){
+        return gender;
+    }
+    else{std::cout<<"try again.";
+    }
 }
-void select_person(Node &currentNode) {
-
+std::string enterName(){
+    std::string name;
+    std::cout<<"enter name: "<<std::endl;
 }
 
 #endif //SLEKTSTRE_CONSOLE_HPP
