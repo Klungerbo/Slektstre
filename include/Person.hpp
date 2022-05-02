@@ -4,7 +4,6 @@
 
 #ifndef SLEKTSTRE_PERSON_HPP
 #define SLEKTSTRE_PERSON_HPP
-
 #include "functions.hpp"
 
 class Person {
@@ -15,8 +14,8 @@ public:
         Empty
     };
 
-    explicit Person(std::string name, int age = 0, Gender gender = Empty) : name_(std::move(name)), age_(age),
-                                                                            gender_(gender) {};
+    explicit Person(std::string name, int age = 0, Gender gender = Empty, int ID=0) : name_(std::move(name)), age_(age),
+                                                                            gender_(gender), ID_(ID) {};
 
     void setAge(int age) {
         age_ = age;
@@ -35,6 +34,7 @@ public:
         name_ = name;
     }
 
+
     [[nodiscard]] bool isFemale() const {
         return gender_ == Female;
     }
@@ -50,6 +50,9 @@ public:
     [[nodiscard]] int getBirthYear() const {
         return birthYear_;
     }
+    int getID()const{
+        return ID_;
+    }
 
     [[nodiscard]] int getGender() const {
         if (gender_ == Male) {
@@ -58,15 +61,13 @@ public:
             return Female;
         }
     }
-
-    [[nodiscard]] std::string getGender_string() const {
+    [[nodiscard]] std::string getGender_s() const {
         if (gender_ == Male) {
             return "Male";
         } else {
             return "Female";
         }
     }
-
 
     bool operator==(const Person &a) const {
 

@@ -6,25 +6,13 @@
 #include <string>
 #include "memory"
 #include "console.hpp"
+#include "Person.hpp"
 
 
 int main() {
-    std::unique_ptr<int> population = std::make_unique<int>();
+    std::cout << "Welcome to ancestor tree.\n\n";
+    Person p = createPerson();
+    Node root(p);
+    mainMenu(root);
 
-    std::cout << "Welcome to ancestor tree.\n\n"
-                 "Type the first persons name: ";
-    std::string name;
-    int age;
-    std::string gender;
-
-    std::getline(std::cin, name);
-    std::cout<<"enter age: "<<std::endl;
-    std::cin>> age;
-    std::cout<<"enter gender: "<<std::endl;
-    std::getline(std::cin, gender);
-
-    std::cout << "The first persons name is:  " << name << "." << std::endl;
-
-
-    return 0;
 }

@@ -1,2 +1,3 @@
 I denne oppgaven har jeg brukt [folders](https://github.com/AIS1002-OOP/folders/blob/master/main.cpp)
 for å finne dato har jeg brukt forumet
+inspirasjon til funcitions.hpp inputDigit fra https://stackoverflow.com/questions/5655142/how-to-check-if-input-is-numeric-in-c
