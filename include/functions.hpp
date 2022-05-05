@@ -15,6 +15,35 @@
 #include <utility>//                      |   |
 #include <vector> //   Children ^            |
 
+int enterAge(){
+    int age;
+    std::cin>>age;
+    return age;
+}
+int inputDigit(){
+    int input;
+    std::cin>>input;
+    if(!std::isdigit(input)){
+        std::cin.clear();
+        std::cin.ignore();
+        std::cout<<"invalid number. try again: \n";
+        inputDigit();
+    }
+    return input;
+}
+std::string enterGender(){
+    std::string gender;
+    if(gender == ("female") || gender == "male"){
+        return gender;
+    }
+    else{std::cout<<"try again.";
+    }
+}
+std::string enterName(){
+    std::string name;
+    std::getline(std::cin, name );
+    return name;
+}
 
 /*int getCurrentYear() {
     auto currentDateTime= std::chrono::system_clock::now();

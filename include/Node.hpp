@@ -5,57 +5,59 @@
 #ifndef SLEKTSTRE_NODE_HPP
 #define SLEKTSTRE_NODE_HPP
 
-#include "functions.hpp"
 #include "Person.hpp"
+#include "functions.hpp"
 
-template<typename t>
+//template<typename t>
 class Node {
 public:
-
-    explicit Node(t &member) : member_(&member) {};
+    explicit Node(Person &member) : member_(&member){};
 
     [[nodiscard]] Person getMember() const {
-        return member_;
+        return *member_;
     }
 
-    [[nodiscard]] Person getParent() const {
-        return *parent_;
+    [[nodiscard]] Node getChild() const {
+        return *child_;
     }
 
-    [[nodiscard]] Person getChild(int i) const {
+    [[nodiscard]] Node getParent(int i) const {
         if (i == 0) {
-            return *children_[0];
+            return *parent_[0];
         } else {
-            return *children_[1];
+            return *parent_[1];
         }
     }
 
-    void addChild(t &p) {
-        *parent_ = this;
-        if (p.getGender() == p.isFemale()) {
-            *children_[0] = p;
-        } else {
-            *children_[1] = p;
+    void addParent(Node &n) {
+        n.child_ = this;
+        if (n.member_->getGender() == n.member_->isFemale()) {
+            *parent_[0] = n;
+        }
+        else {
+            *parent_[1] = n;
         }
     }
-
-    void addParent(t &p) {
-        *parent_ = p;
-    }
-
 
     [[nodiscard]] bool isRoot() const {
-        return parent_ == nullptr;
+        return child_ == nullptr;
     }
 
     [[nodiscard]] bool isLeaf() const {
-        return children_[0] && children_[1] == nullptr;
+        return parent_[0] && parent_[1] == nullptr;
+    }
+
+    void printPersonData() {
+        std::cout << "name: " << member_->getName() << std::endl;
+        std::cout << "age:  " << member_->getAge() <<", born "<< member_->getBirthYear()<< std::endl;
+        std::cout << "gender:  " << member_->getGender_s() << std::endl;
+        std::cout << "ID:   " << member_->getID() << std::endl;
     }
 
 private:
-    Person member_;
-    Person *parent_ = nullptr;
-    Person *children_[2]{nullptr, nullptr};
+    Person *member_ = nullptr;
+    Node *child_ = nullptr;
+    Node *parent_[2]{nullptr, nullptr};
     int ID_ = 0;
 };
 
