@@ -14,8 +14,8 @@ public:
         Empty
     };
 
-    explicit Person(std::string name, int age = 0, Gender gender = Empty, int ID=0) : name_(std::move(name)), age_(age),
-                                                                            gender_(gender), ID_(ID) {};
+    explicit Person(std::string name, int age = 0, Gender gender = Empty) : name_(std::move(name)), age_(age),
+                                                                            gender_(gender), ID_(ID_counter++) {};
 
     void setAge(int age) {
         age_ = age;
@@ -25,6 +25,7 @@ public:
     [[nodiscard]] int getAge() const {
         return getCurrentYear() - birthYear_;
     }
+
 
     void setGender(Gender &g) {
         gender_ = g;
@@ -84,8 +85,9 @@ private:
     int age_ = 0;
     int ID_ = 0;
     int birthYear_ = getCurrentYear() - age_;
-
+    static int ID_counter;
 };
+int Person::ID_counter=0;
 
 
 #endif //SLEKTSTRE_PERSON_HPP

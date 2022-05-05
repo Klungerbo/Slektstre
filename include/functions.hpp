@@ -15,8 +15,11 @@
 #include <utility>//                      |   |
 #include <vector> //   Children ^            |
 
+
 int enterAge(){
     int age;
+    std::string input_s;
+    std::getline(std::cin, input_s);
     std::cin>>age;
     return age;
 }
@@ -25,12 +28,13 @@ int inputDigit(){
     std::cin>>input;
     if(!std::isdigit(input)){
         std::cin.clear();
-        std::cin.ignore();
+        std::cin.ignore(1000, '\n');
         std::cout<<"invalid number. try again: \n";
         inputDigit();
     }
     return input;
 }
+
 std::string enterGender(){
     std::string gender;
     if(gender == ("female") || gender == "male"){
