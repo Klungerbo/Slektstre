@@ -1,0 +1,13 @@
+# ninja log v5
+1836	2636	6721451086432238	Slektstre.exe	820bdc9fd0d789f8
+2	419	6731877702670018	build.ninja	de1346396ba67df2
+25	1276	6722526967035877	include/CMakeFiles/slektstrelib.dir/myTree.cpp.obj	d55d3ba7a479cc63
+3	824	6723240714496500	tool/CMakeFiles/main.dir/main.cpp.obj	6f3150685385c946
+6	157	6722542336176139	include/libslektstrelib.a	ab18fc410292fc74
+20	24349	6722535019072113	include/CMakeFiles/slektstrelib.dir/__/tests/tests.cpp.obj	c42aa0c62d45a24d
+740	872	6723240466678095	tool/main.exe	121e6528e5d1282d
+4	24317	6722535018842908	tool/CMakeFiles/main.dir/__/tests/tests.cpp.obj	6e3cf27a795e694
+9	21444	6724938197754978	tests/CMakeFiles/testFunctions.dir/tests.cpp.obj	476b40f482e49692
+21445	82712	6724938810735497	tests/testFunctions.exe	977e7b953b507692
+3	13550	6728494968189357	tests/CMakeFiles/tests.dir/tests.cpp.obj	f49bddf31b94f014
+13550	54326	6728495376317134	tests/tests.exe	82a48b4628a45c66
