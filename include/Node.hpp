@@ -16,11 +16,13 @@ class Node {
 public:
     explicit Node(Person person) : person_(std::move(person)){};
 
+
+
     [[nodiscard]] Person getPerson() const {
         return person_;
     }
 
-    Node getChild() const {
+    [[nodiscard]] Node getChild() const {
         return *child_;
     }
 

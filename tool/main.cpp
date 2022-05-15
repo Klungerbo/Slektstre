@@ -11,8 +11,8 @@ int main() {
 
         std::cout << "Welcome to ancestor tree.\n\n";
         Person p = createPerson();
-        Node root(p);
-        mainMenu(root);
+        std::unique_ptr<Node> root = std::make_unique<Node>(Node(p));
+        mainMenu(*root);
 
 return 0;
 }
