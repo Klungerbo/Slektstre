@@ -18,64 +18,70 @@ Person createPerson() {
 
     std::cout << "enter age: " << std::endl;
     std::cin >> age;
+    std::cin.ignore(10000, '\n');
+    std::cin.clear();
 
+
+while (gender==Person::Empty){
     std::cout << "Press 1. for male,\n"
                  "Press 2. for female "
               << std::endl;
     std::cin >> input;
-    switch (input) {
-    case 1:
-        gender = Person::Male;
-        break;
-    case 2:
-        gender = Person::Female;
-        break;
-    default:
-        defaultMsg();
-        std::cin >> input;
-    }
-            Person p(name, age, gender);
-            return p;
-
-}
-void changeSelection(Node &currentNode){
-    int input;
-    std::cout<<"1. mother\n"
-                 "2. father\n"
-                 "3. child.\n"
-                 "4. return";
-    input = inputDigit();
+    std::cin.ignore(10000, '\n');
+    std::cin.clear();
     switch (input) {
         case 1:
-            currentNode = currentNode.getMother();
+            gender = Person::Male;
             break;
         case 2:
-            currentNode = currentNode.getFather();
-            break;
-        case 3:
-            currentNode = currentNode.getChild();
-        case 4:
+            gender = Person::Female;
             break;
         default:
             defaultMsg();
-            changeSelection(currentNode);
+            break;
 
     }
+
+}
+    Person p(name, age, gender);
+    return p;
+
+}
+void showRelations(Node currentNode){
+    if (currentNode.getFather() != nullptr){
+        Person father = currentNode.getFather()->getPerson();
+        std::cout<<"Father: "<<father.getName()<<std::endl;;
+    }
+    if(currentNode.getMother() != nullptr){
+        Person mother = currentNode.getMother()->getPerson();
+        std::cout<<"Mother: "<<mother.getName()<<std::endl;;
+    }
+    if(!currentNode.isRoot()){
+        Person child = currentNode.getChild().getPerson();
+        std::cout<<"Child: "<<child.getName()<<std::endl;
+
+
+    }
+    else if (currentNode.isRoot() && currentNode.isLeaf()){
+        std::cout<<currentNode.getPerson().getName()<<" has no relations\n"<<std::endl;
+    }
+
 }
 
+
 void mainMenu(Node &currentNode){
-    std::cout<<"currently selected node is: "<<currentNode.getPerson().getName()<<std::endl;
-    std::cout<<"1. add new parent: \n"
-                 "2. get info on current person\n"
-                 "3. change selected person\n"
-                 "0. exit";
-    int input;
-    std::cin>>input;
-    std::cin.ignore(1000, '\n');
-    std::cout<<std::endl;
     bool exit = false;
     while(!exit){
-
+        std::cout<<"main menu"<<std::endl;
+        std::cout<<"1. add a new parent to "<<currentNode.getPerson().getName()<<"\n"
+                     "2. get info on "<<currentNode.getPerson().getName()<<"\n"
+                     "3. show relations\n"
+                     "0. exit\n"
+                     "select: ";
+        int input;
+        std::cin>>input;
+        std::cin.ignore(1000, '\n');
+        std::cout<<std::endl;
 
         switch (input) {
             case 1: {
@@ -95,7 +101,7 @@ void mainMenu(Node &currentNode){
             }
 
             case 3:{
-
+                showRelations(currentNode);
 
                 break;
             }
@@ -112,6 +118,7 @@ void mainMenu(Node &currentNode){
     }
 
 }
+
 
 
 #endif //SLEKTSTRE_CONSOLE_HPP

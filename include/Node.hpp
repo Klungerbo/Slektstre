@@ -5,6 +5,7 @@
 #ifndef SLEKTSTRE_NODE_HPP
 #define SLEKTSTRE_NODE_HPP
 
+#include <memory>
 #include <utility>
 
 #include "Person.hpp"
@@ -19,25 +20,25 @@ public:
         return person_;
     }
 
-    [[nodiscard]] Node getChild() const {
-        return std::move(*child_);
+    Node getChild() const {
+        return *child_;
     }
 
-    Node getFather() {
-        return std::move(*father);
+    std::shared_ptr<Node> getFather() {
+        return father_;
 
     }
 
-    Node getMother() {
-        return std::move(*mother) ;
+    std::shared_ptr<Node> getMother() {
+        return mother_;
     }
 
-    void addMother(Person p) {
-        auto n = std::make_unique<Node>(p);
-        n->child_=this;
+    void addMother(Person &p) {
+        auto n = std::make_shared<Node>(p);
+        n->child_ = this;
 
-        if (!mother){
-            mother=std::move(n);
+        if (!mother_){
+            mother_=std::move(n);
         }
         else{
             std::cout<<"node already have this parent";
@@ -45,11 +46,11 @@ public:
     }
 
     void addFather( Person &p) {
-        auto n = std::make_unique<Node>(p);
+        auto n = std::make_shared<Node>(p);
         n->child_=this;
 
-        if(!father){
-            father = std::move(n);
+        if(!father_){
+            father_ = std::move(n);
 
         }
         else{
@@ -62,7 +63,7 @@ public:
     }
 
     [[nodiscard]] bool isLeaf() const {
-        return !mother && !father;
+        return !mother_ && !father_;
     }
 
     void printPersonData() {
@@ -75,8 +76,8 @@ public:
 private:
     Person person_;
     Node *child_= nullptr;
-    std::unique_ptr<Node> mother = nullptr;
-    std::unique_ptr<Node> father = nullptr;
+    std::shared_ptr<Node> mother_ = nullptr;
+    std::shared_ptr<Node> father_ = nullptr;
 };
 
 

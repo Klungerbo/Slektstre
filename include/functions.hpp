@@ -35,19 +35,6 @@ int inputDigit(){
     return input;
 }
 
-std::string enterGender(){
-    std::string gender;
-    if(gender == ("female") || gender == "male"){
-        return gender;
-    }
-    else{std::cout<<"try again.";
-    }
-}
-std::string enterName(){
-    std::string name;
-    std::getline(std::cin, name );
-    return name;
-}
 
 /*int getCurrentYear() {
     auto currentDateTime= std::chrono::system_clock::now();
